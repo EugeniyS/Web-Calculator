@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Микрокалькулятор</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-weight: bold;
+                font-family: sans-serif;
+            }
+            input[type="range"]{
+                accent-color: #9ac4f8;
+            }
+            .main{
+                width:100%;
+                height:100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .calc-container{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                width: 50%;
+            }
+            .calc{
+                background-color: #e56399;
+                height:70%;
+                width:50%;
+                padding: 3%;
+                display: flex;
+                flex-direction: column;
+            }
+            .display{
+                width:100%;
+                height:8%;
+                background-color: white;
+                padding:2%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border:0.2em solid #c6d4ff;
+                margin-bottom: 5%;
+            }
+            .display-element{
+                height:100%;
+                width:8.33%;
+                padding:2%;
+                font-size: 2em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color:#1098f7;
+            }
+            .calc-control{
+                width:100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 2%;
+            }
+            .calc-control-range{
+                width:25%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            .calc-control-range input{
+                width: 100%;
+            }
+            .calc-control-range-text{
+                margin-bottom: 3%;
+                width:100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .calc-control-range-text div{
+                color:#392b58;
+            }
+            .calc-control-buttons{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                flex-grow: 1;
+            }
+            .button-up-text{
+                color:#392b58;
+                width:100%;
+                display: flex;
+                align-items: center;
+                margin-bottom: 5%;
+            }
+            .button-up-text-center{
+                justify-content: center;
+            }
+            .button-up-text-space-between{
+                justify-content: space-between;
+            }
+            .calc-control-buttons-row{
+                width:100%;
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+            .calc-control-buttons-row ~ .calc-control-buttons-row{
+                margin-top:4.5%;
+            }
+            .button-container ~ .button-container{
+                margin-left: 2%;
+            }
+            .button-container button{
+                width:4vw;
+                height: 5vh;
+                border:0;
+                font-size: 20px;
+            }
+            .button-color-1{
+                background-color:#1098f7;
+                color:white;
+            }
+            .button-color-1:hover{
+                background-color:#3eacfa;
+            }
+            .button-color-1:active{
+                background-color:#70c1fa;
+            }
+            .button-color-2{
+                background-color:#416788;
+                color:white;
+            }
+            .button-color-2:hover{
+                background-color:#517fa8;
+            }
+            .button-color-2:active{
+                background-color:#7298ba;
+            }
+            .button-color-3{
+                background-color:#9ac4f8;
+                color:#392b58;
+            }
+            .button-color-3:hover{
+                background-color:#cae0fa;
+            }
+            .button-color-3:active{
+                background-color:#fafcff;
+            }
+            .button-color-4{
+                background-color:#307473;
+                color:white;
+            }
+            .button-color-4:hover{
+                background-color:#3f9997;
+            }
+            .button-color-4:active{
+                background-color:#51b8b6;
+            }
+            .button-color-5{
+                background-color:#99edcc;
+                color:#392b58;
+            }
+            .button-color-5:hover{
+                background-color: #4dffc3;
+            }
+            .button-color-5:active{
+                background-color: #7fffd4;
+            }
+            .button-up-text-color-1{
+                color:#99edcc;
+            }
+            .button-up-text-color-2{
+                color:#1098f7;
+            }
+            .button-down-text{
+                color:white;
+                position:absolute;
+                width:4vw;
+                margin-top: 0.3%;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="calc-container">
+                <div class="calc">
+                    <div class="display" id="display">
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                        <div class="display-element"></div>
+                    </div>
+                    <div class="calc-control">
+                        <div class="calc-control-range">
+                            <div class="calc-control-range-text">
+                                <div>Выкл.</div>
+                                <div>Вкл.</div>
+                            </div>
+                            <input type="range" min="0" max="1" value="0" id="turnon">
+                        </div>
+                        <div class="calc-control-range">
+                            <div class="calc-control-range-text">
+                                <div>Р</div>
+                                <div>ГРД</div>
+                                <div>Г</div>
+                            </div>
+                            <input type="range" min="0" max="2" value="0" id="angle-changer">
+                        </div>
+                    </div>
+                    <div class="calc-control-buttons">
+                        <div class="calc-control-buttons-row">
+                            <div class="button-container">
+                                <button class="button-color-5" onclick="onButtonClick(event)" value="1">F</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">x<0</div>
+                                </div>
+                                <button class="button-color-2" onclick="onButtonClick(event)" value="2">→<br>ШГ</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">x=0</div>
+                                </div>
+                                <button class="button-color-2" onclick="onButtonClick(event)" value="3">←<br>ШГ</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">x≥0</div>
+                                </div>
+                                <button class="button-color-2" onclick="onButtonClick(event)" value="4">В/О</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">x≠0</div>
+                                </div>
+                                <button class="button-color-2" onclick="onButtonClick(event)" value="5">С/П</button>
+                            </div>
+                        </div>
+                        <div class="calc-control-buttons-row">
+                            <div class="button-container">
+                                <button class="button-color-1" onclick="onButtonClick(event)" value="6">K</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">L0</div>
+                                </div>
+                                <button class="button-color-2" onclick="onButtonClick(event)" value="7">П→X</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">L1</div>
+                                </div>
+                                <button class="button-color-2" onclick="onButtonClick(event)" value="8">X→П</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">L2</div>
+                                </div>
+                                <button class="button-color-2" onclick="onButtonClick(event)" value="9">БП</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">L3</div>
+                                </div>
+                                <button class="button-color-2" onclick="onButtonClick(event)" value="10">ПП</button>
+                            </div>
+                        </div>
+                        <div class="calc-control-buttons-row">
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">sin</div>
+                                    <div class="button-up-text-color-2">[x]</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="11">7</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">cos</div>
+                                    <div class="button-up-text-color-2">{x}</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="12">8</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">tg</div>
+                                    <div class="button-up-text-color-2">max</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="13">9</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">√¯</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="14">-</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">1/x</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="15">÷</button>
+                            </div>
+                        </div>
+                        <div class="calc-control-buttons-row">
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">sin<sup>-1</sup></div>
+                                    <div class="button-up-text-color-2">|x|</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="16">4</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">cos<sup>-1</sup></div>
+                                    <div class="button-up-text-color-2">ЗН</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="17">5</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">tg<sup>-1</sup></div>
+                                    <div class="button-up-text-color-2">°<span style="vertical-align: 8px;">←</span>'</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="18">6</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">π</div>
+                                    <div class="button-up-text-color-2">°<span style="vertical-align: 8px;">→</span>'</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="19">+</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">x²</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="20">×</button>
+                            </div>
+                        </div>
+                        <div class="calc-control-buttons-row">
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">e<sup>x</sup></div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="21">1</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-center">
+                                    <div class="button-up-text-color-1">lg</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="22">2</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">ln</div>
+                                    <div class="button-up-text-color-2">°<span style="vertical-align: 8px;">←</span><span style="letter-spacing:-2px;">'&nbsp;"</span></div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="23">3</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">x<sup>y</sup></div>
+                                    <div class="button-up-text-color-2">°<span style="vertical-align: 8px;">→</span><span style="letter-spacing:-2px;">'&nbsp;"</span></div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="24">↔</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">Вx</div>
+                                    <div class="button-up-text-color-2">СЧ</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="25">В↑</button>
+                                <div class="button-down-text">e</div>
+                            </div>
+                        </div>
+                        <div class="calc-control-buttons-row">
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">10<sup>x</sup></div>
+                                    <div class="button-up-text-color-2">НОП</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="26">0</button>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">Ѻ</div>
+                                    <div class="button-up-text-color-2">∧</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="27">,</button>
+                                <div class="button-down-text">a</div>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">АВТ</div>
+                                    <div class="button-up-text-color-2">∨</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="28">/ - /</button>
+                                <div class="button-down-text">b</div>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">ПРГ</div>
+                                    <div class="button-up-text-color-2">⊕</div>
+                                </div>
+                                <button class="button-color-3" onclick="onButtonClick(event)" value="29">ВП</button>
+                                <div class="button-down-text">c</div>
+                            </div>
+                            <div class="button-container">
+                                <div class="button-up-text button-up-text-space-between">
+                                    <div class="button-up-text-color-1">СF</div>
+                                    <div class="button-up-text-color-2">ИНВ</div>
+                                </div>
+                                <button class="button-color-4" onclick="onButtonClick(event)" value="30">Сx</button>
+                                <div class="button-down-text">d</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="calc_input"></div>
+        </div>
+        <script>
+
+            class CalcNumber{
+                number_str="";
+                number=0;
+                comma_id=-1;
+                isNegative=false;
+                isVP=false;
+                isVPNegative=false;
+                vp="00";
+                isHEX=false;
+
+                #c_number_str="";
+                #c_number=0;
+                #c_comma_id=-1;
+                #c_isNegative=false;
+                #c_isVP=false;
+                #c_isVPNegative=false;
+                #c_vp="00";
+
+                #MAX_COUNT=8;
+
+                constructor(){
+                    this.default();
+                    this.isHEX=false;
+                }
+
+                default(){
+                    this.number_str="";
+                    this.number=0;
+                    this.comma_id=-1;
+                    this.isNegative=false;
+                    this.isVP=false;
+                    this.isVPNegative=false;
+                    this.vp="00";
+                }
+
+                addNum(value){
+                    if(!this.isHEX)
+                        this.#docopy();
+
+                    if(this.isVP){
+                        this.vp=this.vp[1];
+                        this.vp+=value;
+                    }
+                    else{
+                        if(this.number_str.length<this.#MAX_COUNT){
+                            this.number_str+=value;
+                        }
+                    }
+                    if(!this.isHEX){
+                        this.#doNumber();
+                        let isChecked=this.#checkNumber();
+                        if (!isChecked)
+                            this.#recopy();
+                        return isChecked;
+                    }
+                }
+
+                turnOnVP(){
+                    this.isVP=true;
+                    this.vp="00";
+                    this.isVPNegative=false;
+                    if(!this.isHEX)
+                        this.#doNumber();
+                }
+
+                turnOnHEX(){
+                    this.#docopy();
+                    this.isHEX=true;
+                }
+
+                turnOfHEX(){
+                    if(this.isHEX){
+                        this.isHEX=false;
+                        let hex="";
+                        for(let i=0;i<this.number_str.length;i++){
+                            if(parseInt(this.number_str[i],16)>=10)
+                                hex+="6";
+                            else
+                                hex+="0";
+                        }
+                        let result=(parseInt(hex,16)+parseInt(this.number_str,16)).toString(16);
+                        this.number_str=result.length>8?result.substring(0,8):result;
+                        this.number=parseInt(this.number_str);
+
+                        let isChecked=this.#checkNumber();
+                        if (!isChecked)
+                            this.#recopy();
+                        return isChecked;
+                    }
+                }
+
+                changeNegative(){
+                    if(this.isVP)
+                        this.isVPNegative=!this.isVPNegative;
+                    else
+                        this.isNegative=!this.isNegative;
+
+                    if(!this.isHEX)
+                        this.#doNumber();
+                }
+
+                addComma(){
+                    if(!this.isHEX)
+                        this.#docopy();
+
+                    if(this.isVP)
+                        return false;
+                    else{
+                        if(this.comma_id==-1&&this.number_str.length!=0&&this.number_str.length!=this.#MAX_COUNT){
+                            this.comma_id=this.number_str.length-1;
+                        }
+                    }
+                    
+                    if(!this.isHEX){
+                        this.#doNumber();
+                        let isChecked=this.#checkNumber();
+                        if (!isChecked)
+                            this.#recopy();
+                        return isChecked;
+                    }
+                }
+
+                #doNumber(){
+                    if(this.number_str.length!=0){
+                        let copy_num=this.number_str;
+                        if (this.comma_id!=-1&&this.comma_id!=this.number_str.length-1){
+                            let first_part=copy_num.substring(0,this.comma_id+1);
+                            let second_part=copy_num.substring(this.comma_id+1,copy_num.length);
+                            copy_num=first_part+"."+second_part;
+                        }
+
+                        this.number=this.comma_id==-1?parseInt(copy_num):parseFloat(copy_num);
+
+                        this.number=this.isNegative?-this.number:this.number;
+
+                        if(this.isVP){
+                            let copy_vp=this.vp[0]=='0'?this.vp[1]:this.vp;
+                            let vp=parseInt(copy_vp);
+                            vp=this.isVPNegative?-vp:vp;
+                            this.number=this.number*Math.pow(10,vp);
+                        }
+                    }
+                }
+
+                #checkNumber(){
+                    let copy_num=this.number.toExponential();
+                    copy_num=parseInt(copy_num.split('e')[1]);
+                    if(copy_num>99)
+                        return false;
+                    else
+                        return true;
+                }
+
+                #recopy(){
+                    this.number_str=this.#c_number_str;
+                    this.number=this.#c_number;
+                    this.comma_id=this.#c_comma_id;
+                    this.isNegative=this.#c_isNegative;
+                    this.isVP=this.#c_isVP;
+                    this.isVPNegative=this.#c_isVPNegative;
+                    this.vp=this.#c_vp;
+                }
+
+                #docopy(){
+                    this.#c_number_str= this.number_str;
+                    this.#c_number= this.number;
+                    this.#c_comma_id= this.comma_id;
+                    this.#c_isNegative= this.isNegative;
+                    this.#c_isVP= this.isVP;
+                    this.#c_isVPNegative= this.isVPNegative;
+                    this.#c_vp= this.vp;
+                }
+
+                getNumber(){
+                    return this.number;
+                }
+
+                convertToOut(){
+                    const MAX_OUT_COUNT=23;
+                    let result=this.isNegative?"-":"+";
+                    if(this.number_str.length!=0){
+                        for(let i=0;i<this.number_str.length;i++){
+                            result+=this.number_str[i];
+                            result+=i==this.comma_id?',':' ';
+                        }
+                    }
+                    else{
+                        result+="0 ";
+                    }
+                    if(result.indexOf(',')==-1){
+                        result=result.substring(0,result.length-1)+',';
+                    }
+                    if(this.isVP){
+                        let count=0;
+                        for(let i=result.length;i<MAX_OUT_COUNT-6;i++){
+                            result+=" ";
+                            count++;
+                        }
+                        result+=this.isVPNegative?"- ":"  ";
+                        result+=this.vp[0]+" "+this.vp[1]+" ";
+                    }
+                    return result;
+                }
+
+                fromNumToStr(value){
+                    if(!this.isHEX){
+
+                        this.#docopy();
+
+                        this.default();
+                        const MAX_NUMBER=99999999;
+                        this.isNegative=value<0?true:false;
+                        value=Math.abs(value);
+
+                        if(value>MAX_NUMBER){
+                            let vp=0;
+                            do{
+                                value=value.toExponential();
+                                value=value.split('e');
+
+                                vp+=parseInt(value[1]);
+
+                                value=parseFloat(value[0]);
+                                while (value.toString().length > this.#MAX_COUNT+1) {
+                                    value = value.toFixed(value.toString().length-3);
+                                    value=parseFloat(value);
+                                }
+                            }while(value>=10);
+
+                            this.comma_id=value.toString().indexOf('.')-1;
+                            this.number_str=value.toString().replace(".", "");
+                            if(vp<0){
+                                this.isVPNegative=true;
+                            }
+                            else{
+                                this.isVPNegative=false;
+                            }
+                            this.isVP=true;
+                            vp=Math.abs(vp);
+                            this.vp=vp<10?"0"+vp:vp.toString();
+                        }
+                        else{
+                            if(value.toString().indexOf('.')!=-1){
+                                if (value>=1){
+                                    let value_str=value.toString().split('.');
+                                    let count=value_str[0].length+value_str[1].length;
+                                    if(count>this.#MAX_COUNT){
+                                        let comma_index=value.toString().indexOf('.');
+                                        while (value.toString().length > this.#MAX_COUNT+1) {
+                                            value = value.toFixed(value.toString().length-comma_index-2);
+                                            value=parseFloat(value);
+                                            this.comma_id=value.toString().indexOf('.')-1;
+                                            this.number_str=value.toString().replace(".", "");
+                                            if(value[0]=='-'){
+                                                this.isVPNegative=true;
+                                            }
+                                            else{
+                                                this.isVPNegative=false;
+                                            }
+                                            this.isVP=false;
+                                        }
+                                    }else{
+                                        this.comma_id=value.toString().indexOf('.')-1;
+                                        this.number_str=value_str[0]+value_str[1];
+                                    }
+                                }
+                                else{
+                                    let vp=0;
+                                    do{
+                                        value=value.toExponential();
+                                        value=value.split('e');
+
+                                        vp+=parseInt(value[1]);
+
+                                        value=parseFloat(value[0]);
+                                        while (value.toString().length > this.#MAX_COUNT+1) {
+                                            value = value.toFixed(value.toString().length-3);
+                                            value=parseFloat(value);
+                                        }
+                                    }while(value>=10);
+                                    this.comma_id=value.toString().indexOf('.')-1;
+                                    this.number_str=value.toString().replace(".", "");
+                                    if(vp<0){
+                                        this.isVPNegative=true;
+                                    }
+                                    else{
+                                        this.isVPNegative=false;
+                                    }
+                                    this.isVP=true;
+                                    vp=Math.abs(vp);
+                                    this.vp=vp<10?"0"+vp:vp.toString();
+                                }
+                            }
+                            else{
+                                this.number_str=value.toString();
+                            }
+                        }
+                        this.#doNumber();
+                        let isChecked=this.#checkNumber();
+                        if (!isChecked)
+                            this.#recopy();
+                        return isChecked;
+                    }else{
+                        this.default();
+
+                        if (value.indexOf('.')!=-1&&value.indexOf('.')!=value.length-1){
+                            let zeroId=-1;
+                            for(let i=value.length-1;i>=0;i++){
+                                if(value[i]=='0')
+                                    zeroId=i;
+                                else
+                                    break;
+                            }
+                            if (zeroId!=-1)
+                                value=value.substring(0,zeroId-1);
+                        }
+
+                        for(let i=0;i<value.length;i++){
+                            if (value[i]=='.'&&i!=0&&i!=value.length-1)
+                                this.comma_id=i-1;
+                            else
+                                this.number_str+=value[i];
+                        }
+                    }
+                }
+
+                getNumberStr(){
+                    return this.number_str;
+                }
+
+            }
+
+            let isTurnOn=false;
+
+            let isF=false;
+            let isK=false;
+
+            let isTransfer=false;
+            let isStart=false;
+
+            let isInp=false;
+            let isOut=false;
+
+            let angle_type=0; //0-радианы, 1-грады, 2-градусы
+
+            let func_type=0; //0-авто, 1-прог, 2-работа программы
+
+            let stack=[new CalcNumber(),new CalcNumber(),new CalcNumber(),new CalcNumber()];
+            let last_result=new CalcNumber();
+
+            let registrs=[];
+
+            let commands=[];
+            let commands_counter=0;
+
+            window.onload=()=>{
+                defaultValues();
+                turnOnElement=document.getElementById('turnon');
+                angleChanger=document.getElementById('angle-changer');
+
+                turnOnElement.onchange=()=>{
+                    isTurnOn=turnOnElement.value==1?true:false;
+                    if(isTurnOn){
+                        outNumbers(false);
+                        defaultValues();
+                    }
+                    else{
+                        outNumbers(false,"");
+                        defaultValues();
+                    }
+                }
+
+                angleChanger.onchange=()=>{
+                    angle_type=angleChanger.value;
+                }
+                
+            }
+
+            function defaultValues(){
+                isF=false;
+                isK=false;
+
+                isTransfer=false;
+                isStart=false;
+
+                stack=[new CalcNumber(),new CalcNumber(),new CalcNumber(),new CalcNumber()];
+                last_result=new CalcNumber();
+
+                func_type=0;
+
+                for(let i=0;i<15;i++){
+                    registrs.push(new CalcNumber());
+                }
+
+                commands_counter=0;
+
+                isVP=false;
+
+                for(let i=0;i<105;i++){
+                    commands.push("00");
+                }
+            }
+
+            function outNumbers(isError,numbers="+0,"){
+                display=document.getElementById("display");
+                display_elements=display.querySelectorAll(".display-element");
+
+                display_elements.forEach(child => {
+                    child.innerText="";
+                });
+                
+                error=" E R R O R";
+
+                if (isError){
+                    numbers=error;
+                }
+
+                if(numbers[0]=='-'){
+                    display_elements[0].innerText=numbers[0];
+                }
+
+                let element_number=1;
+
+                for(let i=1;i<numbers.length&&element_number<display_elements.length;i++){
+                   if(i%2!=0){
+                        display_elements[element_number].innerText=numbers[i];
+                   }else{
+                        if(numbers[i]==','){
+                            display_elements[element_number].innerText+=numbers[i];
+                        }
+                        element_number++;
+                   }
+                }
+            }
+
+            function addToStack(){
+                if(!stack[0].isHEX)
+                    stack[0].fromNumToStr(stack[0].number);
+                stack[3]=stack[2];
+                stack[2]=stack[1];
+                stack[1]=stack[0];
+            }
+            
+            function removeFromStack(){
+                stack[1]=stack[2];
+                stack[2]=stack[3];
+                stack[3]=new CalcNumber();
+            }
+
+            function onButtonClick(event){
+                if(isTurnOn){
+                    button_value=event.target.value;
+                    switch(button_value){
+                        case "1":
+                            isF=true;
+                            isK=false;
+                            break;
+                        case "2":
+                            break;
+                        case "3":
+                            break;
+                        case "4":
+                            break;
+                        case "5":
+                            break;
+                        case "6":
+                            isK=true;
+                            isF=false;
+                            break;
+                        case "7":
+                            if(isF){
+                                isF=false;
+                            }
+                            else if(isK){
+                                isK=false;
+                            }
+                            else{
+                                isInp=false;
+                                isOut=true;
+                            }
+                            break;
+                        case "8":
+                            if(isF){
+                                isF=false;
+                            }
+                            else if(isK){
+                                isK=false;
+                            }
+                            else{
+                                isInp=true;
+                                isOut=false;
+                            }
+                            break;
+                        case "9":
+                            break;
+                        case "10":
+                            break;
+                        case "11":
+                            if(isF){
+                                doFunc("1[");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("34");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(7);
+                                else
+                                    inputValue(7);
+                            }
+                            break;
+                        case "12":
+                            if(isF){
+                                doFunc("1Г");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("35");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(8);
+                                else
+                                    inputValue(8);
+                            }
+                            break;
+                        case "13":
+                            if(isF){
+                                doFunc("1E");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("36");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(9);
+                                else
+                                    inputValue(9);
+                            }
+                            break;
+                        case "14":
+                            if(isF){
+                                doFunc("21");
+                                isF=false;
+                            }
+                            else if(isK){
+                                isK=false;
+                            }
+                            else{
+                                doFunc("11");
+                            }
+                            break;
+                        case "15":
+                            if(isF){
+                                doFunc("23");
+                                isF=false;
+                            }
+                            else if(isK){
+                                isK=false;
+                            }
+                            else{
+                                doFunc("13");
+                            }
+                            break;
+                        case "16":
+                            if(isF){
+                                doFunc("19");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("31");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(4);
+                                else
+                                    inputValue(4);
+                            }
+                            break;
+                        case "17":
+                            if(isF){
+                                doFunc("1-");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("32");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(5);
+                                else
+                                    inputValue(5);
+                            }
+                            break;
+                        case "18":
+                            if(isF){
+                                doFunc("1L");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("33");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(6);
+                                else
+                                    inputValue(6);
+                            }
+                            break;
+                        case "19":
+                            if(isF){
+                                doFunc("20");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("26");
+                                isK=false;
+                            }
+                            else{
+                                doFunc("10");
+                            }
+                            break;
+                        case "20":
+                            if(isF){
+                                doFunc("22");
+                                isF=false;
+                            }
+                            else if(isK){
+                                isK=false;
+                            }
+                            else{
+                                doFunc("12");
+                            }
+                            break;
+                        case "21":
+                            if(isF){
+                                doFunc("16");
+                                isF=false;
+                            }
+                            else if(isK){
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(1);
+                                else
+                                    inputValue(1);
+                            }
+                            break;
+                        case "22":
+                            if(isF){
+                                doFunc("17");
+                                isF=false;
+                            }
+                            else if(isK){
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(2);
+                                else
+                                    inputValue(2);
+                            }
+                            break;
+                        case "23":
+                            if(isF){
+                                doFunc("18");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("30");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(3);
+                                else
+                                    inputValue(3);
+                            }
+                            break;
+                        case "24":
+                            if(isF){
+                                doFunc("24");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("2-");
+                                isK=false;
+                            }
+                            else{
+                                doFunc("14");
+                            }
+                            break;
+                        case "25":
+                            if(isF){
+                                returnOldResult();
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("3L");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(14);
+                                else
+                                    inputToStack();
+                            }
+                            break;
+                        case "26":
+                            if(isF){
+                                doFunc("15");
+                                isF=false;
+                            }
+                            else if(isK){
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(0);
+                                else
+                                    inputValue(0);
+                            }
+                            break;
+                        case "27":
+                            if(isF){
+                                doFunc("25");
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("37");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(10);
+                                else
+                                    addComma();
+                            }
+                            break;
+                        case "28":
+                            if(isF){
+                                
+                            }
+                            else if(isK){
+                                doFunc("38");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(11);
+                                else
+                                    addRemoveMinus();
+                            }
+                            break;
+                        case "29":
+                            if(isF){
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("39");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(12);
+                                else{
+                                    stack[0].turnOnVP();
+                                    isTransfer=false;
+                                    isStart=false;
+                                }
+                            }
+                            break;
+                        case "30":
+                            if(isF){
+                                isF=false;
+                            }
+                            else if(isK){
+                                doFunc("3-");
+                                isK=false;
+                            }
+                            else{
+                                if(isInp||isOut)
+                                    inpOutReg(13);
+                                else
+                                    clearXStack();
+                            }
+                            break;
+                    }
+                }
+            }
+
+            function inpOutReg(id){
+                if(isInp){
+                    registrs[id]=stack[0];
+                    isTransfer=true;
+                }
+                if(isOut){
+                    addToStack();
+                    stack[0]=registrs[id];
+                }
+                isTransfer=true;
+                isOut=false;
+                isInp=false;
+                outNumbers(false,stack[0].convertToOut());
+            }
+
+            function inputValue(value){
+                if(isTurnOn){
+                    if(isTransfer){
+                        addToStack();
+                        isTransfer=false;
+                        stack[0]=new CalcNumber();
+                    }
+                    if(isStart){
+                        stack[0]=new CalcNumber();
+                        isStart=false;
+                    }
+                    stack[0].addNum(value);
+                    outNumbers(false,stack[0].convertToOut());
+                }
+            }
+
+            function returnOldResult(){
+                addToStack();
+                stack[0]=last_result;
+                outNumbers(false,stack[0].convertToOut());
+                isStart=true;
+            }
+
+            function inputToStack(){
+                addToStack();
+                outNumbers(false,stack[0].convertToOut());
+                isStart=true;
+            }
+
+            function toRad(value){
+                if (angle_type==0){
+                    return value;
+                }
+                if (angle_type==1){
+                   return value * Math.PI / 200;
+                }
+                if(angle_type==2){
+                    return value * Math.PI / 180;
+                }
+            }
+
+            function fromRad(value){
+                if (angle_type==0){
+                    return value;
+                }
+                if (angle_type==1){
+                   return value * (200 / Math.PI);
+                }
+                if(angle_type==2){
+                    return value * (180 / Math.PI);
+                }
+            }
+
+            function copyNum(value){
+                result=new CalcNumber();
+                result.number_str=value.number_str;
+                result.number=value.number;
+                result.comma_id=value.comma_id;
+                result.isNegative=value.isNegative;
+                result.isVP=value.isVP;
+                result.isVPNegative=value.isVPNegative;
+                result.vp=value.vp;
+                result.isHEX=value.isHEX;
+                return result;
+            }
+
+            function doFunc(func_num){
+                last_result=stack[0];
+
+                let x_c=copyNum(stack[0]);
+                let y_c=copyNum(stack[1]);
+
+                stack[0].turnOfHEX();
+                y_c.turnOfHEX();
+
+                let x=stack[0].getNumber();
+                let y=y_c.getNumber();
+                let result=0;
+
+                switch(func_num){
+                    case "10":
+                        result=x+y;
+                        console.log(stack[1]);
+                        console.log(stack[0]);
+                        console.log(x_c);
+                        console.log(y_c);
+                        removeFromStack();
+                        break;
+                    case "11":
+                        result=y-x;
+                        removeFromStack();
+                        break;
+                    case "12":
+                        result=y*x;
+                        removeFromStack();
+                        break;
+                    case "13":
+                        result=y/x;
+                        removeFromStack();
+                        break;
+                    case "14":
+                        result=stack[1].number;
+                        stack[1]=stack[0];
+                        break;
+                    case "15":
+                        result=Math.pow(10,x);
+                        break;
+                    case "16":
+                        result=Math.pow(Math.E,x);
+                        break;
+                    case "17":
+                        result=Math.log10(x);
+                        break;
+                    case "18":
+                        result=Math.log(x);
+                        break;
+                    case "19":
+                        result=fromRad(Math.asin(x));
+                        break;
+                    case "1-":
+                        result=fromRad(Math.acos(x));
+                        break;
+                    case "1L":
+                        result=fromRad(Math.atan(x));
+                        break;
+                    case "1[":
+                        result=Math.sin(toRad(x));
+                        break;
+                    case "1Г":
+                        result=Math.cos(toRad(x));
+                        break;
+                    case "1E":
+                        result=Math.tan(toRad(x));
+                        break;
+                    case "20":
+                        addToStack();
+                        result=Math.PI;
+                        break;
+                    case "21":
+                        result=Math.sqrt(x);
+                        break;
+                    case "22":
+                        result=Math.pow(x,2);
+                        break;
+                    case "23":
+                        result=1.0/x;
+                        break;
+                    case "24":
+                        result=Math.pow(x,y);
+                        break;
+                    case "25":
+                        result=stack[1].number;
+                        stack[1]=stack[2];
+                        stack[2]=stack[3];
+                        stack[3]=stack[0];
+                        break;
+                    case "26":
+                        result=converToDM(x);
+                        result=angleToDecimalDegrees(result['degrees'],result['minutes'],0);
+                        break;
+                    case "33":
+                        result=decimalDegreesToAngleV2(x);
+                        break;
+                    case "2-":
+                        result=converToDMSF(x);
+                        result=angleToDecimalDegrees(result['degrees'],result['minutes'], result['seconds']);
+                        break;
+                    case "30":
+                        result=decimalDegreesToAngle(x);
+                        break;
+                    case "31":
+                        if(stack[0].isNegative){
+                            stack[0].changeNegative();
+                        }
+                        result=stack[0].number;
+                        break;
+                    case "32":
+                        if(x==0){
+                            result=0;
+                        }
+                        else if(x<0){
+                            result=-1;
+                        }
+                        else{
+                            result=1;
+                        }
+                        break;
+                    case "34":
+                        result=x.toString().indexOf('.')==-1?x:parseInt(x.toString().split('.')[0]);
+                        break;
+                    case "35":
+                        result=x.toString().indexOf('.')==-1?0:parseFloat("0."+x.toString().split('.')[1]);
+                        break;
+                    case "36":
+                        result=x<y?y:x;
+                        break;
+                    case "3L":
+                        result=Math.random();
+                        break;
+                    case "37":
+                        x=x_c.getNumberStr();
+                        y=stack[1].getNumberStr();
+                        x=x.substring(1,x.length);
+                        y=y.substring(1,y.length);
+                        result="8."+and(x,y);
+                        stack[0].turnOnHEX();
+                        break;
+                    case "38":
+                        x=x_c.getNumberStr();
+                        y=stack[1].getNumberStr();
+                        x=x.substring(1,x.length);
+                        y=y.substring(1,y.length);
+                        result="8."+or(x,y);
+                        stack[0].turnOnHEX();
+                        break;
+                    case "39":
+                        x=x_c.getNumberStr();
+                        y=stack[1].getNumberStr();
+                        x=x.substring(1,x.length);
+                        y=y.substring(1,y.length);
+                        result="8."+xor(x,y);
+                        stack[0].turnOnHEX();
+                        break;
+                    case "3-":
+                        x=x_c.getNumberStr();
+                        x=x.substring(1,x.length);
+                        result="8."+invert(x);
+                        stack[0].turnOnHEX();
+                        break;
+                }
+                stack[0].fromNumToStr(result);
+                outNumbers(false,stack[0].convertToOut());
+                isTransfer=true;
+            }
+
+            function angleToDecimalDegrees(degrees, minutes, seconds) {
+                var decimalDegrees = degrees + (minutes / 60) + (seconds / 3600);
+                return decimalDegrees;
+            }
+
+            function converToDMSF(decimalDegrees) {
+                var degrees = Math.trunc(decimalDegrees);
+
+                var remainder = decimalDegrees - degrees;
+
+                var minutes = Math.trunc(remainder * 100);
+
+                remainder = remainder * 100 - minutes;
+
+                var seconds = remainder * 100;
+
+                console.log(degrees+" "+minutes+" "+seconds);
+
+                return {
+                    degrees: degrees,
+                    minutes: minutes,
+                    seconds: seconds,
+                };
+            }
+
+            function converToDM(decimalDegrees) {
+                var degrees = Math.trunc(decimalDegrees);
+
+                var remainder = decimalDegrees - degrees;
+
+                var minutes = remainder * 100;
+
+                return {
+                    degrees: degrees,
+                    minutes: minutes,
+                };
+            }
+
+            function decimalDegreesToAngle(decimalDegrees) {
+                result=0;
+                var degrees = Math.trunc(decimalDegrees);
+
+                var remainder = decimalDegrees - degrees;
+
+                var minutes = Math.floor(remainder * 60);
+
+                remainder = remainder * 60 - minutes;
+
+                var seconds = remainder * 60;
+
+                result=seconds/100;
+                result=(result+minutes)/100;
+                result+=degrees;
+
+                return result;
+            }
+
+            function decimalDegreesToAngleV2(decimalDegrees) {
+                result=0;
+                var degrees = Math.trunc(decimalDegrees);
+
+                var remainder = decimalDegrees - degrees;
+
+                var minutes = remainder * 60;
+
+                result=minutes/100;
+                result+=degrees;
+
+                return result;
+            }
+
+            function and(str1,str2){
+                [str1,str2]=padWithZeros(str1, str2);
+                str1=hexToBinary(str1);
+                str2=hexToBinary(str2);
+
+                let andResult = '';
+                for (let i = 0; i < str1.length; i++) {
+                    let bit1 = str1.charAt(i);
+                    let bit2 = str2.charAt(i);
+                    let andBit = bit1=='1'&&bit2=='1' ? '1' : '0';
+                    andResult += andBit;
+                }
+
+                let hexResult = binaryToHex(andResult);
+
+                return hexResult;
+            }
+
+            function or(str1,str2){
+                [str1,str2]=padWithZeros(str1, str2);
+                str1=hexToBinary(str1);
+                str2=hexToBinary(str2);
+
+                let orResult = '';
+                for (let i = 0; i < str1.length; i++) {
+                    let bit1 = str1.charAt(i);
+                    let bit2 = str2.charAt(i);
+                    let orBit = bit1=='1'||bit2=='1' ? '1' : '0';
+                    orResult += orBit;
+                }
+
+                let hexResult = binaryToHex(orResult);
+
+                return hexResult;
+            }
+            
+            function xor(str1,str2){
+                [str1,str2]=padWithZeros(str1, str2);
+                str1=hexToBinary(str1);
+                str2=hexToBinary(str2);
+
+                let xorResult = '';
+                for (let i = 0; i < str1.length; i++) {
+                    let bit1 = str1.charAt(i);
+                    let bit2 = str2.charAt(i);
+                    let xorBit = (bit1 === bit2) ? '0' : '1';
+                    xorResult += xorBit;
+                }
+
+                let hexResult = binaryToHex(xorResult);
+
+                return hexResult;
+            }
+
+            function hexToBinary(hexString) {
+                let binaryString = '';
+                for (let i = 0; i < hexString.length; i++) {
+                    let hexChar = hexString.charAt(i);
+                    let hexValue = parseInt(hexChar, 16);
+                    let binaryValue = hexValue.toString(2).padStart(4, '0');
+                    binaryString += binaryValue;
+                }
+                return binaryString;
+            }
+
+            function binaryToHex(binaryString) {
+                let hexString = '';
+                for (let i = 0; i < binaryString.length; i += 4) {
+                    let nibble = binaryString.substr(i, 4);
+                    let hexValue = parseInt(nibble, 2).toString(16);
+                    hexString += hexValue;
+                }
+                return hexString;
+            }
+
+            function padWithZeros(str1, str2) {
+
+                let diff=Math.abs(str1.length-str2.length);
+                if (str1.length < str2.length) {
+                    str1='0'.repeat(diff) + str1;
+                } else {
+                    str2='0'.repeat(diff) + str2;
+                }
+
+                return [str1, str2];
+            }
+
+            function invert(str) {
+                let res="";
+                for(let i=0;i<str.length;i++){
+                    res+=(15-parseInt(str[i],16)).toString(16);
+                }
+                return res;
+            }5
+            
+            function clearXStack(){
+                isTransfer=false;
+                stack[0]=new CalcNumber();
+                outNumbers(false);
+            }
+
+            function clearValue(){
+                if(isTurnOn){
+                    input="+";
+                    outNumbers(false);
+                }
+            }
+
+            function addRemoveMinus(){
+                stack[0].changeNegative();
+                isStart=true;
+                outNumbers(false,stack[0].convertToOut());
+            }
+
+            function addComma(){
+                stack[0].addComma();
+                outNumbers(false,stack[0].convertToOut());
+            }
+        </script>
+    </body>
+</html>
