@@ -490,6 +490,9 @@
                             this.#recopy();
                         return isChecked;
                     }
+                    else{
+                        return true;
+                    }
                 }
 
                 turnOnVP(){
@@ -524,6 +527,9 @@
                             this.#recopy();
                         return isChecked;
                     }
+                    else{
+                        return true;
+                    }
                 }
 
                 changeNegative(){
@@ -554,6 +560,9 @@
                         if (!isChecked)
                             this.#recopy();
                         return isChecked;
+                    }
+                    else{
+                        return true;
                     }
                 }
 
@@ -758,6 +767,7 @@
                             else
                                 this.number_str+=value[i];
                         }
+                        return true;
                     }
                 }
 
@@ -871,8 +881,10 @@
             }
 
             function addToStack(){
-                if(!stack[0].isHEX)
-                    stack[0].fromNumToStr(stack[0].number);
+                if(!stack[0].isHEX){
+                    if(!stack[0].fromNumToStr(stack[0].number))
+                        outNumbers(true);
+                }
                 stack[3]=stack[2];
                 stack[2]=stack[1];
                 stack[1]=stack[0];
@@ -1261,8 +1273,12 @@
                         stack[0]=new CalcNumber();
                         isStart=false;
                     }
-                    stack[0].addNum(value);
-                    outNumbers(false,stack[0].convertToOut());
+                    if(stack[0].addNum(value))
+                        outNumbers(false,stack[0].convertToOut());
+                    else{
+                        isStart=true;
+                        outNumbers(true);
+                    }
                 }
             }
 
@@ -1480,8 +1496,10 @@
                         stack[0].turnOnHEX();
                         break;
                 }
-                stack[0].fromNumToStr(result);
-                outNumbers(false,stack[0].convertToOut());
+                if (Number.isNaN(result)||!stack[0].fromNumToStr(result))
+                    outNumbers(true);
+                else
+                    outNumbers(false,stack[0].convertToOut());
                 isTransfer=true;
             }
 
@@ -1671,8 +1689,10 @@
             }
 
             function addComma(){
-                stack[0].addComma();
-                outNumbers(false,stack[0].convertToOut());
+                if(stack[0].addComma())
+                    outNumbers(false,stack[0].convertToOut());
+                else
+                    outNumbers(true);
             }
         </script>
     </body>
